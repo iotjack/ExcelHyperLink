@@ -26,7 +26,11 @@ namespace HyperLink
             Excel.Range r = worksheet.Cells.Application.Selection;
             foreach (object cell in r.Cells)
             {
-                worksheet.Hyperlinks.Add(cell, prefix + ((Excel.Range)cell).Value2.ToString(), Type.Missing, "", "");
+                string text = ((Excel.Range)cell).Value2.ToString();
+                if (text.Trim().Length > 0)
+                {
+                    worksheet.Hyperlinks.Add(cell, prefix + text, Type.Missing, "", text);
+                }
                 //((Excel.Range)cell).Value2 = "prefix";
             }
         }
